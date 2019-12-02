@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 import java.time.LocalTime;
 
 @Entity
@@ -13,15 +14,12 @@ public class Sessao {
     @Id
     @GeneratedValue
     private Integer id;
-
     private LocalTime horario;
-
     @ManyToOne
     private Sala sala;
-
     @ManyToOne
     private Filme filme;
-
+    private BigDecimal preco;
     /**
      * @deprecated hibernate only
      */
@@ -30,7 +28,16 @@ public class Sessao {
     public Sessao(LocalTime horario, Sala sala, Filme filme) {
         this.horario = horario;
         this.sala = sala;
-        this.setFilme(filme);
+        this.filme = filme;
+        this.preco = sala.getPreco().add(filme.getPreco());
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
     }
 
     public LocalTime getHorarioTermino() {
