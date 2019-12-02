@@ -18,8 +18,7 @@ public class SessaoDao {
     }
 
     public List<Sessao> buscaSessoesDaSala(Sala sala) {
-        String sqlQuery = "select s from Sessao s where s.sala = :sala";
-        return entityManager.createQuery(sqlQuery)
+        return entityManager.createQuery("select s from Sessao s where s.sala = :sala")
                 .setParameter("sala", sala)
                 .getResultList();
     }
