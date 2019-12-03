@@ -1,5 +1,6 @@
 package br.com.caelum.ingresso.dao;
 
+import br.com.caelum.ingresso.model.Filme;
 import br.com.caelum.ingresso.model.Sala;
 import br.com.caelum.ingresso.model.Sessao;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,12 @@ public class SessaoDao {
     public List<Sessao> buscaSessoesDaSala(Sala sala) {
         return entityManager.createQuery("select s from Sessao s where s.sala = :sala")
                 .setParameter("sala", sala)
+                .getResultList();
+    }
+
+    public List<Sessao> buscaSessoesDoFilme(Filme filme) {
+        return entityManager.createQuery("select s from Sessao s where s.filme = :filme",Sessao.class)
+                .setParameter("filme", filme)
                 .getResultList();
     }
 }

@@ -1,15 +1,19 @@
 package br.com.caelum.ingresso.controller;
 
 import br.com.caelum.ingresso.dao.FilmeDao;
+import br.com.caelum.ingresso.dao.SessaoDao;
 import br.com.caelum.ingresso.model.Filme;
+import br.com.caelum.ingresso.model.Sessao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,11 +26,31 @@ public class FilmeController {
     @Autowired
     private FilmeDao filmeDao;
 
+    @Autowired
+    private SessaoDao sessaoDao;
+
+    @GetMapping("/filme/{id}/detalhe")
+    public ModelAndView detalhes(@PathVariable("id") Integer id) {
+        ModelAndView modelAndView = new ModelAndView("/filme/detalhe");
+        Filme filme = filmeDao.findOne(id);
+        List<Sessao> sessoes = sessaoDao.buscaSessoesDoFilme(filme);
+        modelAndView.addObject("filme", filme);
+        modelAndView.addObject("sessoes", sessoes);
+        return modelAndView;
+    }
+
+
+    @GetMapping("/filme/em-cartaz")
+    public ModelAndView emCartaz() {
+        ModelAndView modelAndView = new ModelAndView("/filme/em-cartaz");
+        modelAndView.addObject("filmes", filmeDao.findAll());
+        return modelAndView;
+    }
 
     @GetMapping({"/admin/filme", "/admin/filme/{id}"})
     public ModelAndView form(@PathVariable("id") Optional<Integer> id, Filme filme){
 
-        ModelAndView modelAndView = new ModelAndView("filme/filme");
+        ModelAndView modelAndView = new ModelAndView("/filme/filme");
 
         if (id.isPresent()){
             filme = filmeDao.findOne(id.get());
@@ -63,7 +87,6 @@ public class FilmeController {
 
         return modelAndView;
     }
-
 
     @DeleteMapping("/admin/filme/{id}")
     @ResponseBody
