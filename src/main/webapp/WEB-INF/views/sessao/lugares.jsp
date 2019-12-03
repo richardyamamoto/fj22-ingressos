@@ -20,7 +20,7 @@
     	
 		<div class="sidenav">
 			<div class="elementsNav">
-		        <h1>${sessao.filme.nome}</h1>	
+		        <h1>${sessao.filme.nome}</h1>
 		        <h2>${sessao.sala.nome}</h2>
 		        <h3>${sessao.horario}</h3>
 			<img class="capa" src="${imagemCapa.url}"/>
@@ -38,14 +38,14 @@
 								<tr>
 								<c:forEach var="lugar" items="${map.value}">
 									<td class="fileira-assento"><figure>
-										<svg class="assento disponivel" data-lugar="${lugar}" id="${lugar.id}"  version="1.0" id="SEAT" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-												 viewBox="0 0 318.224 305.246" enable-background="new 0 0 318.224 305.246" xml:space="preserve">
+										<svg class="assento ${sessao.isDisponivel(lugar) ? "disponivel" : "ocupado"}" onclick="${sessao.isDisponivel(lugar) ? 'changeCheckbox(this)' : '' }" id="${lugar.id}" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+											 viewBox="0 0 318.224 305.246" enable-background="new 0 0 318.224 305.246" xml:space="preserve">
 											<g id="FILL">
 												<path d="M269.395,132.246h-15.02V51.414c0-11.758-9.492-21.248-21.248-21.248H85.097
 													c-11.757,0-21.248,9.49-21.248,21.248v80.833H48.827c-8.535,0-15.127,7.505-14.024,15.971l11.406,87.625
 													c0.462,3.538,3.476,6.187,7.045,6.187h17.958l4.629,21.843c1.385,6.536,7.155,11.209,13.833,11.209h138.845
 													c6.68,0,12.448-4.672,13.833-11.209l4.648-21.933l0.009,0.09h17.959c3.569,0,6.585-2.649,7.045-6.187l11.407-87.625
-													C284.522,139.751,277.931,132.246,269.395,132.246z"/>
+													C284.522,139.751,277.931,132.246,269.395,132.246z"></path>
 											</g>
 											<path id="STROKE" fill="#4F4F4F" d="M290.664,127.709c-5.374-6.118-13.126-9.628-21.269-9.628h-0.854V51.414
 												c0-19.526-15.886-35.414-35.414-35.414H85.097c-19.528,0-35.414,15.888-35.414,35.414v66.667h-0.856
@@ -61,7 +61,7 @@
 												c-0.678,0-1.326,0.152-1.992,0.221V139.35c0-6.056-4.361-11.094-10.105-12.18V51.431c0-8.784,7.152-15.936,15.936-15.936h148.032
 												c8.784,0,15.936,7.152,15.936,15.936V127.162z M81.039,262.772l-8.397-39.591c-0.553-2.621,0.097-5.319,1.785-7.394
 												c1.681-2.082,4.185-3.272,6.854-3.272h155.634c2.67,0,5.174,1.19,6.854,3.272c1.688,2.075,2.338,4.773,1.785,7.394l-8.397,39.591
-											c-0.858,4.053-4.496,7-8.639,7H89.678C85.534,269.772,81.896,266.825,81.039,262.772z"/>
+											c-0.858,4.053-4.496,7-8.639,7H89.678C85.534,269.772,81.896,266.825,81.039,262.772z"></path>
 										</svg>
 										<input type="checkbox" value="${lugar.id}" >
 									    <figcaption>${lugar.posicao}</figcaption>
