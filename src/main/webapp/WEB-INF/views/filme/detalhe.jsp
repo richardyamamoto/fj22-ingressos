@@ -45,7 +45,7 @@
 	
 	        <div>
 	            <label for="avaliacao">Avaliação</label>
-	            <span id="avaliacao">${detalhes.avaliacao}</span>
+	            <span id="avaliacao">${detalhes.avalicao}</span>
 	        </div>
 
 			<%-- <sec:authorize access="hasRole('COMPRADOR')"> --%>
