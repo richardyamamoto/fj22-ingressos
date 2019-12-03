@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public class SessaoDao {
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -28,5 +29,9 @@ public class SessaoDao {
         return entityManager.createQuery("select s from Sessao s where s.filme = :filme",Sessao.class)
                 .setParameter("filme", filme)
                 .getResultList();
+    }
+
+    public Sessao findOne(Integer id) {
+        return entityManager.find(Sessao.class, id);
     }
 }

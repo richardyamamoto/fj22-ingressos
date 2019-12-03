@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Sessao {
@@ -74,5 +76,9 @@ public class Sessao {
 
     public void setFilme(Filme filme) {
         this.filme = filme;
+    }
+
+    public Map<String, List<Lugar>> getMapaDeLugares() {
+        return sala.getMapaDeLugares();
     }
 }
