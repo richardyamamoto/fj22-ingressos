@@ -43,6 +43,15 @@ public class SessaoController {
     @Autowired
     private Carrinho carrinho;
 
+
+    public SessaoController(SalaDao salaDao, FilmeDao filmeDao, SessaoDao sessaoDao, ImdbClient imdbClient, Carrinho carrinho){
+        this.salaDao = salaDao;
+        this.filmeDao = filmeDao;
+        this.sessaoDao = sessaoDao;
+        this.imdbClient = imdbClient;
+        this.carrinho = carrinho;
+    }
+
     @GetMapping("/sessao/{id}/lugares")
     public ModelAndView lugaresNaSessao(@PathVariable("id") Integer sessaoId) {
         ModelAndView modelAndView = new ModelAndView("sessao/lugares");
@@ -52,11 +61,10 @@ public class SessaoController {
         modelAndView.addObject("sessao", sessao);
         modelAndView.addObject("carrinho", carrinho);
         modelAndView.addObject("imagemCapa", imagemCapa.orElse(new ImagemCapa()));
-        modelAndView.addObject("tiposDeIngresso", TipoDeIngresso.values());
+        modelAndView.addObject("tiposDeIngressos", TipoDeIngresso.values());
 
         return modelAndView;
     }
-
 
     @GetMapping("/admin/sessao")
     public ModelAndView form(@RequestParam("salaId") Integer salaId, SessaoForm form) {

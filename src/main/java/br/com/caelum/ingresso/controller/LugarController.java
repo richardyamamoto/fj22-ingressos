@@ -22,11 +22,14 @@ import javax.validation.Valid;
 @Controller
 public class LugarController {
 
+    private final SalaDao salaDao;
 
-    @Autowired
-    private SalaDao salaDao;
-    @Autowired
-    private LugarDao lugarDao;
+    private final LugarDao lugarDao;
+
+    public LugarController(SalaDao salaDao, LugarDao lugarDao){
+        this.salaDao = salaDao;
+        this.lugarDao = lugarDao;
+    }
 
     @GetMapping("/admin/lugar")
     public ModelAndView form(@RequestParam("salaId") Integer salaId, LugarForm lugarDto) {
@@ -39,8 +42,6 @@ public class LugarController {
 
         return view;
     }
-
-
 
     @PostMapping("/admin/lugar")
     @Transactional
@@ -60,5 +61,4 @@ public class LugarController {
 
         return new ModelAndView("redirect:/admin/sala/"+salaId+"/lugares/");
     }
-
 }
